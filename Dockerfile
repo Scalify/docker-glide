@@ -1,6 +1,6 @@
-FROM golang:1.10-alpine
+FROM golang:1.11-alpine
 
-ENV GLIDE_VERSION 0.13.0
+ENV GLIDE_VERSION 0.13.1
 ENV GLIDE_ARCH linux-amd64
 
 RUN apk add --update --no-cache \
