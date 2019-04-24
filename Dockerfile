@@ -1,18 +1,16 @@
-FROM golang:1.11-alpine
+FROM golang:1.12-alpine
 
-ENV GLIDE_VERSION 0.13.1
+ENV GLIDE_VERSION 0.13.2
 ENV GLIDE_ARCH linux-amd64
 
 RUN apk add --update --no-cache \
         ca-certificates \
         git \
         openssh \
+        curl \
   && update-ca-certificates
 
-RUN apk add --update --virtual build-dep --no-cache curl && \
-  mkdir -p $GOPATH/bin && \
+RUN mkdir -p $GOPATH/bin && \
   curl -L "https://github.com/Masterminds/glide/releases/download/v${GLIDE_VERSION}/glide-v${GLIDE_VERSION}-${GLIDE_ARCH}.tar.gz" | tar xz && \
   mv $GLIDE_ARCH/glide /usr/bin/glide && \
-  rm -rf $GLIDE_ARCH && \
-  apk del build-dep && \
-  rm -rf /var/cache/apk/*
+  rm -rf $GLIDE_ARCH
